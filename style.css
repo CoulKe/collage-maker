@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+#no-js {
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: large;
+  color: #ffffff;
+  background-color: rgb(85, 0, 0);
+}
+body {
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#git-link {
+  color: #ffffff;
+  text-decoration: none;
+}
+#git-link:hover {
+  text-decoration: underline;
+}
+footer {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  color: #ffffff;
+  background-color: #000000;
+}
+h1 {
+  text-align: center;
+}
+.container {
+  counter-reset: template;
+}
+#templates {
+  text-align: center;
+}
+.choose,
+#previewButton,
+#downloadButton {
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.choose {
+  margin: 4px;
+}
+.pointer {
+  width: 15px;
+  height: 15px;
+}
+.template {
+  position: relative;
+  margin: auto;
+  background-color: #f3f3ff;
+  border: 1px solid grey;
+  width: 250px;
+  height: 250px;
+  margin-bottom: 6px;
+}
+
+.template::before {
+  content: counter(template) ")";
+  counter-increment: template;
+  position: absolute;
+  font-weight: bold;
+  top: 0;
+  left: -25px;
+}
+
+#t-in-1 {
+  border: 1px solid grey;
+  background-color: inherit;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+#t-in-2 {
+  border-left: 1px solid grey;
+  background-color: inherit;
+  width: 125px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+
+#t-in-3 {
+  border-bottom: 1px solid grey;
+  background-color: inherit;
+  width: 100%;
+  height: 125px;
+  position: absolute;
+  top: 0px;
+}
+/*Upload page*/
+#upload-view {
+  padding: 1rem;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+#preview {
+  display: flex;
+  margin: 32px auto;
+  background-color: #f3f3f3;
+  width: 250px;
+  height: 250px;
+}
+#img-1 {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+#img-2 {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+label {
+  display: block;
+  font-weight: bold;
+  font-size: larger;
+}
+#previewButton,
+#downloadButton {
+  margin: 8px;
+}
+canvas {
+  display: block;
+  margin: auto;
+  border: 2px solid red;
+}

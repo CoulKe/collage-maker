@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload - Collage maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <noscript>
+        <div id="no-js">
+            <p>You need to enable Javascript to use this site</p>
+        </div>
+    </noscript>
+    <div class="container">
+        <div id="upload-view">
+            <form>
+                <label for="files">Upload photos:</label> <br>
+                <input type="file" id="files" multiple>
+            </form>
+            <a href="" id="previewButton">Preview</a>
+            <a href="" id="downloadButton">Download Collage</a>
+            <div id="preview"></div>
+            <canvas width="550px" height="550px"></canvas>
+        </div>
+        <a id="hidden-link" href="#" hidden></a>
+    </div>
+    <script src="./dist/upload.js"></script>
+</body>
+
+</html>
