@@ -9,7 +9,7 @@ var canvas = document.querySelector("canvas");
 var context = canvas === null || canvas === void 0 ? void 0 : canvas.getContext("2d");
 previewButton === null || previewButton === void 0 ? void 0 : previewButton.addEventListener("click", function (e) {
     e.preventDefault();
-    preview.style.display = 'block';
+    preview.style.display = "block";
 });
 downloadButton === null || downloadButton === void 0 ? void 0 : downloadButton.addEventListener("click", function (e) {
     e.preventDefault();
@@ -84,6 +84,9 @@ function paintThenDownload(callback) {
         }
         else if (pickedTemplate === "3") {
             template_3(img1, img2);
+        }
+        else {
+            template_1(img1, img2);
         }
     }
     callback();

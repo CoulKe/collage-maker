@@ -9,7 +9,7 @@ const context = canvas?.getContext("2d");
 
 previewButton?.addEventListener("click", (e) => {
   e.preventDefault();
-  preview.style.display = 'block'
+  preview.style.display = "block";
 });
 downloadButton?.addEventListener("click", function (e) {
   e.preventDefault();
@@ -81,6 +81,8 @@ function paintThenDownload(callback: CallableFunction = downloadImage) {
       template_2(img1, img2);
     } else if (pickedTemplate === "3") {
       template_3(img1, img2);
+    } else {
+      template_1(img1, img2);
     }
   }
   callback();
