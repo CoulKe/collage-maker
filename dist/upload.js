@@ -2,14 +2,21 @@
 /**Maximum number of files to upload */
 var maxFiles = 2;
 var inputElement = document.querySelector("#files");
-var preview = document.querySelector("#preview");
 var downloadButton = document.querySelector("#downloadButton");
 var previewButton = document.querySelector("#previewButton");
-var canvas = document.querySelector("canvas");
-var context = canvas === null || canvas === void 0 ? void 0 : canvas.getContext("2d");
+var hiddenImages = document.querySelector("#hidden-images");
+/**main canvas */
+var cvns = document.querySelector("#cvns");
+/**preview canvas */
+var preview = document.querySelector("#preview");
+/**main canvas context */
+var ctx = cvns.getContext("2d");
+/**preview canvas context */
+var previewCtx = preview.getContext("2d");
 previewButton === null || previewButton === void 0 ? void 0 : previewButton.addEventListener("click", function (e) {
     e.preventDefault();
     preview.style.display = "block";
+    previewCollage();
 });
 downloadButton === null || downloadButton === void 0 ? void 0 : downloadButton.addEventListener("click", function (e) {
     e.preventDefault();
@@ -17,7 +24,7 @@ downloadButton === null || downloadButton === void 0 ? void 0 : downloadButton.a
 });
 inputElement === null || inputElement === void 0 ? void 0 : inputElement.addEventListener("change", saveImages);
 /**
- * Saves the uploaded image in the dom
+ * Saves the uploaded image in the dom.
  */
 function saveImages() {
     var uploadedFile = inputElement === null || inputElement === void 0 ? void 0 : inputElement.files;
@@ -30,7 +37,7 @@ function saveImages() {
                 var img = document.createElement("img");
                 img.setAttribute("src", src === null || src === void 0 ? void 0 : src.toString());
                 img.setAttribute("id", "img-" + (index + 1));
-                preview.append(img);
+                hiddenImages.append(img);
             };
         }
     };
@@ -39,31 +46,79 @@ function saveImages() {
     }
 }
 /**
- * Draws template 1
- * @param img1 image
- * @param img2 image
+ * Draws template 1.
+ * @param img1 image source
+ * @param img2 `blob` image source
+ * @param show `string` preview | main
  */
-function template_1(img1, img2) {
-    context === null || context === void 0 ? void 0 : context.drawImage(img1, 0, 0, 550, 550);
-    context === null || context === void 0 ? void 0 : context.drawImage(img2, 200, 200, 275, 275);
+function template_1(img1, img2, show) {
+    if (show.toLowerCase() === "preview") {
+        /**preview canvas */
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img1, 0, 0, 275, 275);
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img2, 100, 100, 137.5, 137.5);
+    }
+    else if (show.toLowerCase() === "main") {
+        /**main canvas */
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img1, 0, 0, 550, 550);
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img2, 200, 200, 275, 275);
+    }
 }
 /**
- * Draws template 2
- * @param img1 image
- * @param img2 image
+ * Draws template 2.
+ * @param img1 image source
+ * @param img2 `blob` image source
+ * @param show `string` preview | main
  */
-function template_2(img1, img2) {
-    context === null || context === void 0 ? void 0 : context.drawImage(img1, 0, 0, 275, 550);
-    context === null || context === void 0 ? void 0 : context.drawImage(img2, 275, 0, 275, 550);
+function template_2(img1, img2, show) {
+    if (show.toLowerCase() === "preview") {
+        /**preview canvas */
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img1, 0, 0, 137.5, 275);
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img2, 137.5, 0, 137.5, 275);
+    }
+    else if (show.toLowerCase() === "main") {
+        /**main canvas */
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img1, 0, 0, 275, 550);
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img2, 275, 0, 275, 550);
+    }
 }
 /**
- * Draws template 3
- * @param img1 image
- * @param img2 image
+ * Draws template 3.
+ * @param img1 image source
+ * @param img2 `blob` image source
+ * @param show `string` preview | main
  */
-function template_3(img1, img2) {
-    context === null || context === void 0 ? void 0 : context.drawImage(img1, 0, 0, 550, 275);
-    context === null || context === void 0 ? void 0 : context.drawImage(img2, 0, 275, 550, 275);
+function template_3(img1, img2, show) {
+    if (show.toLowerCase() === "preview") {
+        /**preview canvas */
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img1, 0, 0, 275, 137.5);
+        previewCtx === null || previewCtx === void 0 ? void 0 : previewCtx.drawImage(img2, 0, 137.5, 275, 137.5);
+    }
+    else if (show.toLowerCase() === "main") {
+        /**main canvas */
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img1, 0, 0, 550, 275);
+        ctx === null || ctx === void 0 ? void 0 : ctx.drawImage(img2, 0, 275, 550, 275);
+    }
+}
+/**paints the preview canvas. */
+function previewCollage() {
+    var img1 = document.querySelector("#img-1");
+    var img2 = document.querySelector("#img-2");
+    var query = window.location.search;
+    var pickedTemplate = query.split("=")[1];
+    if (img1 !== null && img2 !== null) {
+        if (pickedTemplate === "1") {
+            template_1(img1, img2, "preview");
+        }
+        else if (pickedTemplate === "2") {
+            template_2(img1, img2, "preview");
+        }
+        else if (pickedTemplate === "3") {
+            template_3(img1, img2, "preview");
+        }
+        else {
+            template_1(img1, img2, "preview");
+        }
+    }
 }
 /**
  * Paints the canvas then call the function to download image.
@@ -77,16 +132,16 @@ function paintThenDownload(callback) {
     var pickedTemplate = query.split("=")[1];
     if (img1 !== null && img2 !== null) {
         if (pickedTemplate === "1") {
-            template_1(img1, img2);
+            template_1(img1, img2, "main");
         }
         else if (pickedTemplate === "2") {
-            template_2(img1, img2);
+            template_2(img1, img2, "main");
         }
         else if (pickedTemplate === "3") {
-            template_3(img1, img2);
+            template_3(img1, img2, "main");
         }
         else {
-            template_1(img1, img2);
+            template_1(img1, img2, "main");
         }
     }
     callback();
@@ -95,7 +150,7 @@ function paintThenDownload(callback) {
  * Generate image from the canvas then downloads it.
  */
 function downloadImage() {
-    var dataSrc = canvas.toDataURL("image/png");
+    var dataSrc = cvns.toDataURL("image/png");
     var hiddenLink = document.querySelector("#hidden-link");
     hiddenLink === null || hiddenLink === void 0 ? void 0 : hiddenLink.setAttribute("href", dataSrc);
     hiddenLink === null || hiddenLink === void 0 ? void 0 : hiddenLink.setAttribute("download", "collage" + new Date().getMilliseconds());
